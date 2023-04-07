@@ -1,15 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-//import { Test } from './Movies.styles';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-const Movies = props => <div className="MoviesWrapper">Test content</div>;
+import { getSearchMovies } from '../../serviceAPI';
+import MoviesList from '../../components/MoviesList';
+import SearchBox from '../../components/SearchBox';
 
-Movies.propTypes = {
-  // bla: PropTypes.string,
-};
+const Movies = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [moviesList, setMoviesList] = useState('');
+  const searchMovie = searchParams.get(`query`) ?? '';
+  const location = useLocation();
 
-Movies.defaultProps = {
-  // bla: 'test',
+  useEffect(() => {
+    if (!searchMovie) return;
+
+    const getMovies = async () => {
+      const movies = await getSearchMovies(searchMovie);
+      setMoviesList(movies);
+    };
+
+    getMovies();
+    // eslint-disable-next-line
+  }, []);
+
+  const getMoviesByClick = async e => {
+    e.preventDefault();
+    const movies = await getSearchMovies(searchMovie);
+    setMoviesList(movies);
+  };
+
+  const updateQueryString = query => {
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
+
+  return (
+    <>
+      <SearchBox
+        getMovies={getMoviesByClick}
+        updateQueryString={updateQueryString}
+        searchMovie={searchMovie}
+      />
+
+      {moviesList && <MoviesList movies={moviesList} navProp={location} />}
+    </>
+  );
 };
 
 export default Movies;

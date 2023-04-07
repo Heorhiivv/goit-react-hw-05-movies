@@ -7,20 +7,23 @@ import Movies from '../../pages/Movies';
 import NotFound from '../../pages/NotFound';
 import MovieDetails from '../../pages/MovieDetails';
 
+import Cast from '../Cast';
+import Reviews from '../Reviews';
+import SharedLayout from '../SharedLayout';
+
 const App = () => {
   return (
     <div>
-      <nav>
-        <StyledNavLink to="/" end>
-          Home
-        </StyledNavLink>
-        <StyledNavLink to="/movies">Movies</StyledNavLink>
-      </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:id" element={<MovieDetails />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="movies/:id" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </div>
   );

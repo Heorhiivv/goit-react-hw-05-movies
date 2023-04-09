@@ -1,15 +1,14 @@
 // import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { StyledNavLink } from './App.styled';
+import { lazy } from 'react';
 
-import Home from '../../pages/Home';
-import Movies from '../../pages/Movies';
-import NotFound from '../../pages/NotFound';
-import MovieDetails from '../../pages/MovieDetails';
-
-import Cast from '../Cast';
-import Reviews from '../Reviews';
-import SharedLayout from '../SharedLayout';
+const Home = lazy(() => import('../../pages/Home'));
+const Movies = lazy(() => import('../../pages/Movies'));
+const NotFound = lazy(() => import('../../pages/NotFound'));
+const MovieDetails = lazy(() => import('../../pages/MovieDetails'));
+const Reviews = lazy(() => import('../Reviews'));
+const Cast = lazy(() => import('../Cast'));
+const SharedLayout = lazy(() => import('../SharedLayout'));
 
 const App = () => {
   return (

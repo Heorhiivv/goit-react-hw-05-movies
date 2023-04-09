@@ -1,7 +1,12 @@
 import React, { Suspense } from 'react';
 import { StyledNavLink } from './SharedLayout.styled';
 import { Outlet } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
+
+const Example = ({ type, color }) => (
+  <ReactLoading type={type} color={color} height={667} width={375} />
+);
 
 const SharedLayout = () => (
   <div>
@@ -13,7 +18,7 @@ const SharedLayout = () => (
     </nav>
 
     <main>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Example type={'bubbles'} color={'#c4cf04'} />}>
         <Outlet />
       </Suspense>
     </main>

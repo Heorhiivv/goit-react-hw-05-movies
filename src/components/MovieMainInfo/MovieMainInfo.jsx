@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import BackArrow from '../BackArrow';
 
 const imgBasePath = 'https://image.tmdb.org/t/p/w185/';
 
@@ -16,13 +16,11 @@ const MovieMainInfo = ({ mainInfo, to }) => {
   } = mainInfo;
   return (
     <>
-      <Link to={to.current}>
-        <button type="button">Go back</button>
-      </Link>
+      <BackArrow to={to}>Back to products</BackArrow>
       <div>
         <img src={`${imgBasePath}${poster_path}`} alt="movie poster" />
         <h3>
-          {title ? title : name} ({release_date.slice(0, -6)})
+          {title ? title : name} ({release_date.slice(0, -6) ?? 'Unavailable'})
         </h3>
         <p>User score: {Math.round(Number(vote_average) * 10)}%</p>
         <h3>Overview</h3>

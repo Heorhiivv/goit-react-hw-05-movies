@@ -1,31 +1,33 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-//import { Test } from './MoviesList.styles';
-import { getSearchMovies } from '../../serviceAPI';
+
+import { Container, CardWrapper, MovieName } from './MoviesList.styled';
 
 const MoviesList = ({ movies, navProp }) => {
   const location = useLocation();
 
   return (
-    <ul>
+    <Container>
       {movies.map(({ id, title, name }) => (
-        <li key={id}>
+        <CardWrapper key={id}>
           {navProp ? (
             <Link to={`${id}`} state={{ from: location }}>
-              {title ? title : name}
+              <MovieName>{title ? title : name}</MovieName>
             </Link>
           ) : (
-            <Link to={`movies/${id}`}>{title ? title : name}</Link>
+            <Link to={`movies/${id}`}>
+              <MovieName>{title ? title : name}</MovieName>
+            </Link>
           )}
-        </li>
+        </CardWrapper>
       ))}
-    </ul>
+    </Container>
   );
 };
 
 MoviesList.propTypes = {
-  movies: PropTypes.array,
+  movies: PropTypes.array.isRequired,
+  navProp: PropTypes.object,
 };
 
 MoviesList.defaultProps = {

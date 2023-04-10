@@ -1,19 +1,23 @@
 import React from 'react';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 //import { Test } from './SearchBox.styles';
+
+import { Wrapper, Input, Icon, Button } from './SearchBox.styled';
 
 const SearchBox = ({ getMovies, updateQueryString, searchMovie }) => (
   <Formik>
     <Form onSubmit={getMovies}>
-      <Field
-        type="text"
-        name="searchMovie"
-        value={searchMovie}
-        onChange={e => updateQueryString(e.target.value)}
-      />
-
-      <button type="submit">Search</button>
+      <Wrapper>
+        <Icon />
+        <Input
+          type="text"
+          name="searchMovie"
+          value={searchMovie}
+          onChange={e => updateQueryString(e.target.value)}
+        />
+      </Wrapper>
+      <Button type="submit">Search</Button>
     </Form>
   </Formik>
 );
